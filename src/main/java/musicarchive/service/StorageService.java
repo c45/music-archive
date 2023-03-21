@@ -7,12 +7,14 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ListObjectsV2Result;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.amazonaws.services.s3.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,14 +38,25 @@ public class StorageService {
                 .build();
     }
 
-    public void getSongFileNames() {
+    public List<String> getSongFileNames() {
 
         ListObjectsV2Result result = bucket.listObjectsV2("STORAGE_NAME");
         List<S3ObjectSummary> objects = result.getObjectSummaries();
 
-        objects.stream()
-                .forEach(s3ObjectSummary -> {
-                    log.info(s3ObjectSummary.toString());
-                        });
+        return objects.stream()
+                .map(S3ObjectSummary::getKey)
+                .collect(Collectors.toList());
     }
-}
+
+    public void uploadSong(MultipartFile file) throws IOException {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(file.getContentType());
+            bucket.putObject(new PutObjectRequest(
+                    "BUCKET_NAME",
+                    file.getOriginalFilename(),
+                    file.getInputStream(),
+                    objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        }
+    }
+
