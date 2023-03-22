@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.System.getenv;
+
 @Slf4j
 @Service
 public class StorageService {
@@ -24,7 +26,7 @@ public class StorageService {
 
     public StorageService() {
         AWSCredentialsProvider credentials = new AWSStaticCredentialsProvider(
-                new BasicAWSCredentials("ACCESS_KEY", "SECRET_KEY")
+                new BasicAWSCredentials(getenv("ACCESS_KEY"), getenv("SECRET_KEY"))
         );
 
         bucket = AmazonS3ClientBuilder
@@ -32,7 +34,7 @@ public class StorageService {
                 .withCredentials(credentials)
                 .withEndpointConfiguration(
                         new AwsClientBuilder.EndpointConfiguration(
-                                "url", "region"
+                                getenv("S3_URL"), getenv("REGION")
                         )
                 )
                 .build();
@@ -40,7 +42,7 @@ public class StorageService {
 
     public List<String> getSongFileNames() {
 
-        ListObjectsV2Result result = bucket.listObjectsV2("STORAGE_NAME");
+        ListObjectsV2Result result = bucket.listObjectsV2(getenv("BUCKET_NAME"));
         List<S3ObjectSummary> objects = result.getObjectSummaries();
 
         return objects.stream()
@@ -52,7 +54,7 @@ public class StorageService {
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentType(file.getContentType());
             bucket.putObject(new PutObjectRequest(
-                    "BUCKET_NAME",
+                    getenv("BUCKET_NAME"),
                     file.getOriginalFilename(),
                     file.getInputStream(),
                     objectMetadata)
