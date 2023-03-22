@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://arsen:9ud8l6gh9HGNsQGL@cluster0.cbutwzr.mongodb.net/?retryWrites=true&w=majority
+      database: music-archive
