@@ -1,4 +1,4 @@
-package musicarchive;
+package musicarchive.model;
 
 
 import lombok.Data;
