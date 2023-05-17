@@ -35,23 +35,24 @@
 <li>
 <p>Open the <code>.env</code> file and update the environment variables with your specific values. Configure the following variables:</p>
 <ul>
-<li><code>AWS_ACCESS_KEY_ID</code>: Your AWS access key ID.</li>
-<li><code>AWS_SECRET_ACCESS_KEY</code>: Your AWS secret access key.</li>
-<li><code>AWS_REGION</code>: The AWS region where your S3 bucket and CloudFront distribution are located.</li>
-<li><code>AWS_S3_BUCKET_NAME</code>: The name of your S3 bucket for storing songs.</li>
-<li><code>AWS_CLOUDFRONT_URL</code>: The URL of your CloudFront distribution.</li>
-<li><code>MONGODB_URI</code>: The connection URI for your MongoDB instance.</li>
+<li><code>ACCESS_KEY</code>: Your AWS access key ID.</li>
+<li><code>SECRET_KEY</code>: Your AWS secret access key.</li>
+<li><code>REGION</code>: The AWS region where your S3 bucket and CloudFront distribution are located.</li>
+<li><code>BUCKET_NAME</code>: The name of your S3 bucket for storing songs.</li>
+<li><code>CLOUDFRONT_URL</code>: The URL of your CloudFront distribution.</li>
 </ul>
 </li>
 <li>
 <p>Save and close the <code>.env</code> file.</p>
 </li>
 <li>
-<p>Start your MongoDB service on your local machine.</p>
+  <p>Open <code>application.properties</code> and change <code>&ltYOUR MONGODB URI&gt</code> with your MongoDB URI</p>
+</li>
+<li>  
+<p>Save and close the <code>application.properties</code> file.</p>
 </li>
 <li>
 <p>Run the following command in your terminal or command prompt to build and run the Music Archive application:</p>
-<p>arduinoCopy code</p>
 <p><code>mvn spring-boot:run</code></p>
 </li>
 <li>
