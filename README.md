@@ -2,6 +2,7 @@
 
 <body class="stackedit">
   <div class="stackedit__html"><h1 id="music-archive-documentation">Music Archive</h1>
+    <img src="https://media.tenor.com/FuYhS1n_c0IAAAAC/cat-piano.gif"/>
 <h2 id="overview">Overview</h2>
 <p>Music Archive is a Java-based web service that enables users to listen to and upload songs in MP3 format. It uses the Spring Boot framework and integrates with AWS S3 for file storage and AWS CloudFront for content delivery using a CDN. The application also uses MongoDB to store and retrieve labels through a REST API. To run the project locally, you need to provide your own environment variables.</p>
 <h2 id="technologies-used">Technologies Used</h2>
